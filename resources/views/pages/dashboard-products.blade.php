@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Store Dashboard Products
+    Store Dashboard PRODUCTS2
 @endsection
 
 @section('content')
