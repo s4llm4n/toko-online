@@ -24,6 +24,12 @@ class CreateUsersTable extends Migration
             $table->longText('address_two');
             $table->integer('provinces_id');
             $table->integer('regencies_id');
+            $table->integer('zip_code');
+            $table->integer('country');
+            $table->integer('phone_number');
+            $table->integer('store_name');
+            $table->integer('categories_id');
+            $table->integer('store_status');
 
             $table->softDeletes();
             $table->rememberToken();
