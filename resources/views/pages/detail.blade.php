@@ -28,7 +28,7 @@
           </div>
         </section>
   
-        <section class="store-gallery" id="gallery">
+        <section class="store-gallery mb-3" id="gallery">
           <div class="container">
             <div class="row">
               <div class="col-lg-8" data-aos="zoom-in">
@@ -69,16 +69,29 @@
           <section class="store-heading">
             <div class="container"><div class="row">
               <div class="col-lg-8">
-                <h1>Sofa Ternyaman</h1>
-                <div class="owner">By Galih Pratama</div>
-                <div class="price">$1,409</div>
+                <h1>{{ $product->name }}</h1>
+                <div class="owner">By {{ $product->user->store_name }}</div>
+                <div class="price">Rp{{ number_format($product->price) }}</div>
               </div>
               <div class="col-lg-2" data-aos="zoom-in">
-                <a href="/cart.html"
-                  class="btn btn-success px-4 text-white btn-block mb-3"
-                >
-              Add to Cart
-              </a>
+                @auth
+                  <form action="{{ route('detail-add', $product->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <button
+                    type="submit"
+                    class="btn btn-success px-4 text-white btn-block mb-3"
+                  >
+                    Add to Cart
+                    </button>
+                  </form>
+                @else
+                  <a
+                    href="{{ route('login') }}"
+                    class="btn btn-success px-4 text-white btn-block mb-3"
+                  >
+                    Sign in to Add
+                </a>
+                @endauth
               </div>
             </div>
             </div>
@@ -87,13 +100,7 @@
             <div class="container">
               <div class="row">
                 <div class="col-12 col-lg-8">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla repudiandae 
-                    impedit fugiat pariatur repellat fugit! Quaerat harum sunt, fugit voluptates 
-                    numquam dolorum maiores molestiae facilis quos quod. Aperiam, reiciendis autem?
-                  </p>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, voluptatem 
-                    distinctio est, laudantium harum cumque aliquam voluptates assumenda fugiat 
-                    unde, tempora sed similique omnis praesentium rerum incidunt beatae dolorem vitae.</p>
+                  {!! $product->description !!}
                 </div>
               </div>
             </div>
@@ -164,22 +171,12 @@
     data: {
       activePhoto: 0,
       photos: [
+        @foreach($product->galleries as $gallery)
         {
-          id: 1,
-          url: "/images/product-details-1.jpg",
+          id: {{ $gallery->id }},
+          url: "{{ Storage::url($gallery->photos) }}",
         },
-        {
-          id: 2,
-          url: "/images/product-details-2.jpg",
-        },
-        {
-          id: 3,
-          url: "/images/product-details-3.jpg",
-        },
-        {
-          id: 4,
-          url: "/images/product-details-4.jpg",
-        },
+        @endforeach
       ],
     },
     methods: {
