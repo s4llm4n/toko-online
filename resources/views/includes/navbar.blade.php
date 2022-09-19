@@ -63,13 +63,22 @@
                 >Settings</a
               >
               <div class="dropdown-divider"></div>
-              <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
+              <a href="{{ route('logout') }}" 
+              onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
               class="dropdown-item">Logout</a>
             </div>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link d-inline-block mt-2">
-              <img src="/images/icon-cart-empty.svg" alt="" />
+            <a href="{{ route('cart') }}" class="nav-link d-inline-block mt-2">
+                @php
+                 $carts = \App\Cart::where('users_id', Auth::user()->id)->count();   
+                @endphp
+                @if ($carts > 0)
+                    <img src="/images/icon-cart-filled.svg" alt="" />
+                    <div class="card-badge">{{ $carts }}</div>
+                @else
+                    <img src="/images/icon-cart-empty.svg" alt="" />
+                @endif
             </a>
           </li>
         </ul>
