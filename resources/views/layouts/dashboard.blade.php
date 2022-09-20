@@ -27,38 +27,45 @@
             <img src="/images/dashboard-store-logo.svg" alt="" class="my-4" />
           </div>
           <div class="list-group list-group-flush">
-            <a href="/dashboard.html"
-            class="list-group-item list-group-item-action"
+            <a 
+              href="{{ route('dashboard') }}"
+              class="list-group-item list-group-item-action {{ (request()->is('dashboard')) ? 'active' : '' }}"
           >
             Dashboard
           </a>
-            <a href="/dashboard-products.html"
-            class="list-group-item list-group-item-action"
+            <a 
+              href="{{ route('dashboard-product') }}"
+              class="list-group-item list-group-item-action {{ (request()->is('dashboard/products*')) ? 'active' : '' }}"
           > 
             My Poducts 
           </a>
-          <a href="/dashboard-transactions.html"
-            class="list-group-item list-group-item-action"
+          <a href="{{ route('dashboard-transaction') }}"
+            class="list-group-item list-group-item-action {{ (request()->is('dashboard/transactions*')) ? 'active' : '' }}"
           > 
             Transactions 
           </a>
-          <a href="/dashboard-settings.html"
-            class="list-group-item list-group-item-action"
+          <a href="{{ route('dashboard-settings-store') }}"
+            class="list-group-item list-group-item-action {{ (request()->is('dashboard/settings*')) ? 'active' : '' }}"
           > 
             Store Settings 
           </a>
-          <a href="/dashboard-account.html"
-            class="list-group-item list-group-item-action"
+          <a href="{{ route('dashboard-settings-account') }}"
+            class="list-group-item list-group-item-action {{ (request()->is('dashboard/account*')) ? 'active' : '' }}"
           > 
             My Account 
           </a>
-          <a href="/index.html"
+          <a href=href="{{ route('logout') }}" 
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
             class="list-group-item list-group-item-action"
           > 
             Sign-Out 
           </a>
           </div>
         </div>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none"> 
+          @csrf
+        </form>
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
