@@ -63,10 +63,6 @@
           </div>
         </div>
 
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none"> 
-          @csrf
-        </form>
-
         <!-- Page Content -->
         <div id="page-content-wrapper">
           <nav
@@ -101,28 +97,42 @@
                         alt=""
                         class="rounded-circle mr-2 profile-picture"
                       />
-                      Hi, Salman
+                      Hi, {{ Auth::user()->name }}
                     </a>
-                    <div class="dropdown-menu">
-                      <a href="/dashboard.html" class="dropdown-item">Dashboard</a>
-                      <a href="/dashboard-account.html" class="dropdown-item"
-                        >Settings</a
-                      >
-                      <div class="dropdown-divider"></div>
-                      <a href="/" class="dropdown-item">Logout</a>
-                    </div>
+                        <div class="dropdown-menu">
+                          <a href="{{ route('dashboard') }}" class="dropdown-item">Dashboard</a>
+                          <a href="{{ route('dashboard-settings-account') }}" class="dropdown-item"
+                            >Settings</a
+                          >
+                          <div class="dropdown-divider"></div>
+                          <a href="{{ route('logout') }}" 
+                              onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
+                              class="dropdown-item">
+                              Logout
+                          </a>
+                          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none"> 
+                            @csrf
+                          </form>
+                        </div>
                   </li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link d-inline-block mt-2">
-                      <img src="/images/icon-cartfilled.svg" alt="" />
-                      <div class="card-badge">3</div>
-                    </a>
-                  </li>
+                      <a href="{{ route('cart') }}" class="nav-link d-inline-block mt-2">
+                          @php
+                           $carts = \App\Cart::where('users_id', Auth::user()->id)->count();   
+                          @endphp
+                          @if ($carts > 0)
+                              <img src="/images/icon-cart-filled.svg" alt="" />
+                              <div class="card-badge">{{ $carts }}</div>
+                          @else
+                              <img src="/images/icon-cart-empty.svg" alt="" />
+                          @endif
+                      </a>
+                    </li>
                 </ul>
 
                 <ul class="navbar-nav d-block d-lg-none">
                   <li class="nav-item">
-                    <a href="#" class="nav-link"> Hi, Salman </a>
+                    <a href="#" class="nav-link"> Hi, {{ Auth::user()->name }} </a>
                   </li>
                   <li class="nav-item">
                     <a href="#" class="nav-link d-inline-block"> Cart </a>
