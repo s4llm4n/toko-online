@@ -41,19 +41,30 @@ Route::post('/dashboard/products', 'DashboardProductController@store')
 ->name('dashboard-product-store');
 Route::get('/dashboard/products/{id}', 'DashboardProductController@details')
 ->name('dashboard-product-details');
+Route::post('/dashboard/products/{id}', 'DashboardProductController@update')
+->name('dashboard-product-update');
+
+Route::post('/dashboard/products/gallery/upload', 'DashboardProductController@uploadGallery')
+->name('dashboard-product-gallery-upload');
+Route::get('/dashboard/products/gallery/delete/{id}', 'DashboardProductController@deleteGallery')
+->name('dashboard-product-gallery-delete');
 
 Route::get('/dashboard/transactions', 'DashboardTransactionController@index')
 ->name('dashboard-transaction');
 Route::get('/dashboard/transactions/{id}', 'DashboardTransactionController@details')
 ->name('dashboard-transaction-details');
+Route::post('/dashboard/transactions/{id}', 'DashboardTransactionController@update')
+->name('dashboard-transaction-update');
 
 Route::get('/dashboard/settings', 'DashboardSettingController@store')
 ->name('dashboard-settings-store');
 Route::get('/dashboard/account', 'DashboardSettingController@account')
 ->name('dashboard-settings-account');
+Route::post('/dashboard/account/{redirect}', 'DashboardSettingController@update')
+->name('dashboard-settings-redirect');
 
 });
-// _>middleware(['auth','admin'])
+
 
 Route::prefix('admin')
     ->namespace('Admin')
