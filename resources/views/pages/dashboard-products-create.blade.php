@@ -38,21 +38,23 @@
                   <div class="col-md-12">
                     <div class="form-group">
                     <label>Kategori</label>
-                    <select name="category" class="form-control">
-                      <option value="" disabled>Select Category</option>
-                    </select>
+                    <select name="categories_id" class="form-control">
+                      @foreach ($categories as $category)
+                          <option value="{{ $category->id }}">{{ $category->name }}</option>
+                      @endforeach
+                  </select>
                   </div>
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>Description</label>
-                      <textarea name="editor"></textarea> 
+                      <textarea name="description" id="editor"></textarea> 
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>Thumbnails</label>
-                      <input type="file" class="form-control" />
+                      <input type="file" name="photo" class="form-control" />
                       <p class="text-muted">
                         Kamu dapat memilih lebih dari satu file
                       </p> 
