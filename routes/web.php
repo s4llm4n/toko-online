@@ -68,12 +68,14 @@ Route::post('/dashboard/account/{redirect}', 'DashboardSettingController@update'
 
 Route::prefix('admin')
     ->namespace('Admin')
+    ->middleware(['auth','admin'])
     ->group(function() {
         Route::get('/', 'DashboardController@index') ->name('admin-dashboard');
         Route::resource('category', 'CategoryController');
         Route::resource('user', 'UserController');
         Route::resource('product', 'ProductController');
         Route::resource('product-gallery', 'ProductGalleryController');
+        Route::resource('transaction', 'TransactionController');
     });
 
 Auth::routes();

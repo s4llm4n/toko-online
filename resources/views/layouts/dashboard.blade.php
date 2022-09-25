@@ -86,7 +86,7 @@
                 <ul class="navbar-nav d-none d-lg-flex ml-auto">
                   <li class="nav-item dropdown">
                     <a
-                      href="#"
+                      href=""
                       class="nav-link"
                       id="navbarDropdown"
                       role="button"
